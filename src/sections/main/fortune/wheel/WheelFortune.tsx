@@ -7,7 +7,6 @@ import {
   DialogTitle,
 } from '@/components/dialog'
 import { Flex } from '@/components/Flex'
-import { Heading } from '@/components/Heading'
 import { Strong, Text } from '@/components/textComponent'
 import { useCustomRouter } from '@/hooks/useCustomRouter'
 import { MusicalNoteIcon, SpeakerXMarkIcon } from '@heroicons/react/20/solid'
@@ -335,7 +334,9 @@ export default function WheelFortuneForm({
         </DialogActions>
       </Dialog>
       <div className="flex flex-col items-center justify-center gap-4">
-        <Heading>Vòng quay may mắn</Heading>
+        <h1 className="font-display mb-16 text-6xl/[0.9] font-medium tracking-tight text-balance text-gray-950 sm:text-8xl/[0.8] md:text-6xl/[0.8]">
+          Vòng Quay May Mắn
+        </h1>
         <div className="relative mt-6">
           <div className="absolute -top-2 left-1/2 z-50 -translate-x-1/2 -translate-y-1 transform bg-yellow-200">
             <ChevronDoubleDownIcon className="size-9" />

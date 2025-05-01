@@ -1,7 +1,7 @@
 'use client'
 import { Button } from '@/components/button'
 import { AUTH0_API } from '@/config-global'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 export default function SSOLogin({
   facebook = false,
@@ -10,10 +10,13 @@ export default function SSOLogin({
   facebook?: boolean
   google?: boolean
 }) {
-  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const returnTo = searchParams.get('returnTo') || '/'
+
   const router = useRouter()
+
   const handleLogin = async (url: string) => {
-    localStorage.setItem('returnTo', pathname)
+    localStorage.setItem('returnTo', returnTo)
     router.replace(url)
   }
   return (

@@ -1,14 +1,18 @@
 'use client'
 
 import { useAuthContext } from '@/auth/hooks'
+import { useCustomRouter } from '@/hooks/useCustomRouter'
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
 } from '@headlessui/react'
+import { ArrowRightStartOnRectangleIcon } from '@heroicons/react/16/solid'
 import { Bars2Icon } from '@heroicons/react/24/solid'
 import { motion } from 'framer-motion'
+import { useSearchParams } from 'next/navigation'
+import { useCallback } from 'react'
 import {
   Dropdown,
   DropdownButton,
@@ -18,7 +22,6 @@ import {
 } from './dropdown'
 import { Link } from './link'
 import { PlusGrid, PlusGridItem, PlusGridRow } from './plus-grid'
-import { ArrowRightStartOnRectangleIcon } from '@heroicons/react/16/solid'
 
 const links = [
   { href: '/vong-quay-may-man', label: 'Vòng Quay May Mắn' },
@@ -33,6 +36,20 @@ function DesktopNav() {
     uri: process.env.NEXT_PUBLIC_GRAPHQL_API,
     cache: new InMemoryCache(),
   })
+
+  const { pathName } = useCustomRouter()
+
+  const searchParams = useSearchParams()
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set(name, value)
+
+      return params.toString()
+    },
+    [searchParams],
+  )
 
   const handleLogout = () => {
     signOut()
@@ -54,18 +71,24 @@ function DesktopNav() {
         <Dropdown>
           <DropdownButton as={'div'}>
             <Link
-              href={authenticated ? '#' : '/login'}
+              href={
+                authenticated
+                  ? '#'
+                  : `/login?${createQueryString('returnTo', pathName)}`
+              }
               className="flex items-center px-4 py-3 text-base font-medium text-gray-950 bg-blend-multiply data-hover:bg-black/[2.5%]"
             >
               {user?.name || 'Đăng nhập'}
             </Link>
           </DropdownButton>
-          <DropdownMenu anchor="bottom" className="z-50">
-            <DropdownItem onClick={handleLogout}>
-              <ArrowRightStartOnRectangleIcon />
-              <DropdownLabel>Thoát</DropdownLabel>
-            </DropdownItem>
-          </DropdownMenu>
+          {authenticated && (
+            <DropdownMenu anchor="bottom" className="z-50">
+              <DropdownItem onClick={handleLogout}>
+                <ArrowRightStartOnRectangleIcon />
+                <DropdownLabel>Thoát</DropdownLabel>
+              </DropdownItem>
+            </DropdownMenu>
+          )}
         </Dropdown>
       </PlusGridItem>
     </nav>
@@ -84,6 +107,31 @@ function MobileNavButton() {
 }
 
 function MobileNav() {
+  const { authenticated, user, signOut } = useAuthContext()
+  // appolo client
+  const client = new ApolloClient({
+    uri: process.env.NEXT_PUBLIC_GRAPHQL_API,
+    cache: new InMemoryCache(),
+  })
+
+  const { pathName } = useCustomRouter()
+
+  const searchParams = useSearchParams()
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set(name, value)
+
+      return params.toString()
+    },
+    [searchParams],
+  )
+
+  const handleLogout = () => {
+    signOut()
+    client.resetStore()
+  }
   return (
     <DisclosurePanel className="lg:hidden">
       <div className="flex flex-col gap-6 py-4">
@@ -103,6 +151,27 @@ function MobileNav() {
             </Link>
           </motion.div>
         ))}
+        <motion.div
+          initial={{ opacity: 0, rotateX: -90 }}
+          animate={{ opacity: 1, rotateX: 0 }}
+          transition={{
+            duration: 0.15,
+            ease: 'easeInOut',
+            rotateX: { duration: 0.3, delay: links.length * 0.1 },
+          }}
+        >
+          <Link
+            href={
+              authenticated
+                ? '#'
+                : `/login?${createQueryString('returnTo', pathName)}`
+            }
+            onClick={() => authenticated && handleLogout()}
+            className="text-base font-medium text-gray-950"
+          >
+            {authenticated ? 'Đăng Xuất' : 'Đăng nhập'}
+          </Link>
+        </motion.div>
       </div>
       <div className="absolute left-1/2 w-screen -translate-x-1/2">
         <div className="absolute inset-x-0 top-0 border-t border-black/5" />

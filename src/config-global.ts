@@ -1,4 +1,3 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { paths } from './routes/paths'
 // routes
 // API
@@ -25,6 +24,8 @@ export const CONFIG = {
     redirectPath: paths.root,
   },
 }
+
+export const GOOGLE_TAG = process.env.GOOGLE_TAG || ''
 
 export const HOST_API = CONFIG.site.serverUrl
 export const HOST_GRAPHQL = CONFIG.site.serverGraphql

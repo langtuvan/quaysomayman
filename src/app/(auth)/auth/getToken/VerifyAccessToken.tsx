@@ -6,7 +6,7 @@ import { useCustomRouter } from '@/hooks/useCustomRouter'
 import { useLayoutEffect, useState } from 'react'
 
 export default function VerifyAccessToken({ token }: { token: string }) {
-  const { goTo, router } = useCustomRouter()
+  const { goTo, router, replaceRoute } = useCustomRouter()
   const { signInWithSSo, authenticated, loading } = useAuthContext()
 
   // state
@@ -14,10 +14,10 @@ export default function VerifyAccessToken({ token }: { token: string }) {
   const [isTokenError, setIsTokenError] = useState(false)
 
   const verifyTokenFn = async () => {
-    //const returnTo = localStorage.getItem('returnTo')
+    const returnTo = localStorage.getItem('returnTo') || '/'
     const verify = await signInWithSSo(token)
     if (verify) {
-      return goTo('/')
+      return goTo(returnTo)
     } else {
       setIsTokenError(true)
     }
@@ -28,6 +28,7 @@ export default function VerifyAccessToken({ token }: { token: string }) {
     // check authenticated
     if (authenticated) {
       const returnTo = localStorage.getItem('returnTo')
+      console.log('returnTo', returnTo)
       return returnTo ? goTo(returnTo) : router.back()
     }
     // start loading

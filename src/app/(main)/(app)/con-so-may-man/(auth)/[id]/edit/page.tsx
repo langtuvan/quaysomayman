@@ -42,6 +42,10 @@ export default function RandomWheelEditPage() {
   return (
     <>
       <Container className="space-y-6 py-9">
+        <h1 className="font-display mb-4 text-6xl/[0.9] font-medium tracking-tight text-balance text-gray-950 sm:text-8xl/[0.8] md:text-6xl/[0.8]">
+          Con Số May Mắn
+        </h1>
+        <h2 className="mb-8 text-3xl font-light text-gray-400">Tùy Chỉnh</h2>
         <Flex className="mb-4 items-center justify-end">
           <Button
             disabled={isRefreshing}

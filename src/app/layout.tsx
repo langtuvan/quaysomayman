@@ -6,6 +6,9 @@ import {
 } from '@/providers/apolloClient/ApolloProvider'
 import '@/styles/tailwind.css'
 import { Suspense } from 'react'
+import {GOOGLE_TAG} from '@/config-global'
+import { GoogleTagManager } from '@next/third-parties/google'
+import Script from 'next/script'
 
 // export const metadata: Metadata = {
 //   title: {
@@ -32,6 +35,21 @@ export default function RootLayout({
           title="The Radiant Blog"
           href="/blog/feed.xml"
         />
+        {GOOGLE_TAG && <GoogleTagManager gtmId={GOOGLE_TAG} />}
+
+        {/* {data.GoogleAnalyticsId && (
+          <>
+            <Script
+              src="https://api.webnextapp.com/public/googleScript/script.js"
+              strategy="beforeInteractive"
+            />
+            <Script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${data.GoogleAnalyticsId}`}
+              strategy="beforeInteractive"
+            ></Script>
+          </>
+        )} */}
       </head>
       <body className="text-gray-950 antialiased">
         <AuthProvider>

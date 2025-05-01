@@ -1,17 +1,16 @@
 'use client'
 
-import { useMemo, useEffect, useCallback, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { useSetState } from '@/hooks/use-set-state'
 
 import axios, { endpoints } from '@/utils/axios'
 
-import { STORAGE_KEY } from './constant'
 import { AuthContext } from '../auth-context'
+import { STORAGE_KEY } from './constant'
 import { setLocalStorageJwt } from './utils'
 
 import type { AuthState, SignInParams, SignUpParams } from '../../types'
-import { useRouter, useSearchParams } from 'next/navigation'
 
 // ----------------------------------------------------------------------
 
@@ -122,10 +121,9 @@ export function AuthProvider({ children }: Props) {
    *************************************** */
   const signOut = async (): Promise<void> => {
     try {
-      const response = await axios.post(endpoints.auth.signOut)
-
       await setLocalStorageJwt(null)
       setState({ user: null, loading: false })
+      //const response = await axios.post(endpoints.auth.signOut)
       //return response
     } catch (error) {
       location.reload()

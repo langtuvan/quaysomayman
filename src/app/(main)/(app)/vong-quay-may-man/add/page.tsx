@@ -28,6 +28,10 @@ const TEST_DATA = {
 export default function FortuneWheelAddPage() {
   return (
     <AuthGuard>
+      <h1 className="font-display mb-4 text-6xl/[0.9] font-medium tracking-tight text-balance text-gray-950 sm:text-8xl/[0.8] md:text-6xl/[0.8]">
+        Vòng Quay May Mắn
+      </h1>
+      <h2 className="mb-8 text-3xl font-light text-gray-400">Tạo mới</h2>
       <FortuneNewEditForm currentData={TEST_DATA} addType="wheel" />
     </AuthGuard>
   )

@@ -55,7 +55,7 @@ export const paths = {
       resetPassword: `${ROOTS.AUTH}/amplify/reset-password`,
     },
     jwt: {
-      signIn: `${ROOTS.AUTH}/jwt/login`,
+      signIn: `/login`,
       signUp: `${ROOTS.AUTH}/jwt/register`,
       forgotPassword: `${ROOTS.AUTH}/jwt/forgot-password`,
       updatePassword: `${ROOTS.AUTH}/jwt/update-password`,
