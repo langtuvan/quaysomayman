@@ -20,7 +20,7 @@ const TEST_DATA = {
 export default function FortuneRandomPage() {
   return (
     <div className="grid grid-cols-1">
-      <div className="my-9 flex w-full flex-col items-center justify-around gap-16">
+      <div className="mx-auto my-6 flex flex-col items-center justify-around gap-6 text-center leading-6">
         <RandomFortuneForm currentData={TEST_DATA} demo autoPlay={true} />
       </div>
     </div>

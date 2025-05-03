@@ -21,7 +21,7 @@ export default function FortuneWheelPage() {
   //client side
 
   return (
-    <div className="my-9 flex flex-col items-center justify-around gap-9">
+    <div className="mx-auto my-6 flex flex-col items-center justify-around gap-6 text-center leading-6">
       <WheelFortuneForm currentData={TEST_DATA} demo autoPlay={true} />
     </div>
   )

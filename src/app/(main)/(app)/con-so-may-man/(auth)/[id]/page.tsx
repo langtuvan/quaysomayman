@@ -2,13 +2,11 @@
 // hooks
 import { useCustomRouter } from '@/hooks/useCustomRouter'
 // apollo graphQL
-import { useQuery } from '@apollo/client'
 import { GET_FORTUNE } from '@/graphql/fortune'
+import { useQuery } from '@apollo/client'
 // components
 import RandomFortuneForm from '@/sections/main/fortune/random/RandomFortune'
-import { CenterBox } from '@/components/LoadingScreen'
 import { useEffect } from 'react'
-
 
 export default function RandomFortunePage() {
   //hooks
@@ -18,13 +16,11 @@ export default function RandomFortunePage() {
   const { id } = useParams<{ id: string }>()
 
   //load fortune with user token
-  const { data,  refetch } = useQuery(GET_FORTUNE, {
+  const { data, refetch } = useQuery(GET_FORTUNE, {
     variables: { id },
     skip: !id, // keep loading when id is not present and user is not logged in
     fetchPolicy: 'cache-and-network',
   })
-
-
 
   useEffect(() => {
     const handleFocus = () => {
@@ -39,8 +35,8 @@ export default function RandomFortunePage() {
   const fortune = data?.fortune
 
   return fortune ? (
-    <CenterBox>
+    <div className="mx-auto my-6 flex flex-col items-center justify-around gap-6 text-center leading-6">
       <RandomFortuneForm currentData={fortune} />
-    </CenterBox>
+    </div>
   ) : null
 }

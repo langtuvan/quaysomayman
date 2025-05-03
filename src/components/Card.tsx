@@ -10,7 +10,7 @@ const CardLayout = ({
 }) => (
   <Box
     className={clsx(
-      'card-ring divide-y divide-gray-200 overflow-hidden rounded-xl lg:rounded-2xl lg:shadow-sm lg:ring-2',
+      'card-ring divide-y divide-gray-200 overflow-hidden  lg:rounded-xl lg:shadow-sm lg:ring-2',
     )}
   >
     {children}

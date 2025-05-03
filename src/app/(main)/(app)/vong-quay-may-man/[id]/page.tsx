@@ -1,14 +1,14 @@
 'use client'
-import dynamic from 'next/dynamic'
-import { useQuery } from '@apollo/client'
 import { GET_FORTUNE, GET_FORTUNE_PRIZES } from '@/graphql/fortune'
+import { useQuery } from '@apollo/client'
+import dynamic from 'next/dynamic'
 // hooks
-import { useCustomRouter } from '@/hooks/useCustomRouter'
 import { useAuthContext } from '@/auth/hooks'
-import { notFound } from 'next/navigation'
+import { useCustomRouter } from '@/hooks/useCustomRouter'
 import { QueryApolloError } from '@/providers/apolloClient/utils'
-import { useState } from 'react'
 import View400 from '@/sections/errors/400-view'
+import { notFound } from 'next/navigation'
+import { useState } from 'react'
 
 const WheelFortune = dynamic(
   () => import('@/sections/main/fortune/wheel/WheelFortune'),
@@ -29,10 +29,7 @@ export default function WheelPage() {
   const { user } = useAuthContext()
 
   //load fortune when wheelId is present
-  const {
-    data,
-    error,
-  } = useQuery(GET_FORTUNE_PRIZES, {
+  const { data, error } = useQuery(GET_FORTUNE_PRIZES, {
     variables: { id },
     skip: !id,
     fetchPolicy: 'cache-and-network',
@@ -58,7 +55,6 @@ export default function WheelPage() {
     variables: { id },
     skip: !isCurrentUser,
     fetchPolicy: 'cache-first',
-    
   })
 
   // get Apollo Error Until
@@ -76,13 +72,11 @@ export default function WheelPage() {
     )
   }
 
-
   const fortune = userData?.fortune || data?.guestFortune
 
   return (
     <>
-      {/* {isLoading && <LoadingScreen />} */}
-      <div className="my-9 flex flex-col items-center justify-around gap-9">
+      <div className="mx-auto my-6 flex flex-col items-center justify-around gap-6 text-center leading-6">
         <WheelFortune
           currentData={fortune}
           getPlayer={player}

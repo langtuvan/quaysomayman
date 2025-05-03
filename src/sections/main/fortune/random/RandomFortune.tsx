@@ -359,7 +359,7 @@ export default function RandomFortuneForm({
           Con Số May Mắn
         </h1>
         <div className="flex flex-col items-center justify-center gap-4">
-          <Flex className="flex-row gap-4 font-mono text-7xl text-orange-600">
+          <Flex className="flex-row gap-4 font-mono text-5xl text-orange-600 md:text-7xl">
             <BoxRing className="rounded-lg border-2 bg-zinc-100 p-2 text-center shadow-sm">
               <p>{fiveNumber || 0}</p>
             </BoxRing>

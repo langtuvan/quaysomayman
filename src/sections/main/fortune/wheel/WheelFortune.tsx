@@ -347,7 +347,7 @@ export default function WheelFortuneForm({
               duration: spinning ? timeOut : 0,
               ease: 'easeOut',
             }}
-            className="relative flex h-96 w-96 items-center justify-center rounded-full border-4 border-gray-800 bg-white shadow-lg"
+            className="relative flex h-84 w-84 items-center justify-center rounded-full border-4 border-gray-800 bg-white shadow-lg md:h-96 md:w-96"
             style={{
               background: clsx(
                 prizes.length === 3 &&

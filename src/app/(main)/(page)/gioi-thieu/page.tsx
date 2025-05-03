@@ -545,7 +545,7 @@ function DichVu() {
         <Heading as="div" className="mt-2 text-center capitalize">
           Website App
         </Heading>
-        <div className="mx-auto mt-16 mb-32 max-w-xl space-y-12">
+        {/* <div className="mx-auto mt-16 mb-32 max-w-xl space-y-12">
           <dl>
             <dt className="text-sm font-semibold">
               Viết Phầm mềm theo yêu cầu:
@@ -576,7 +576,7 @@ function DichVu() {
               </p>
             </dd>
           </dl>
-        </div>
+        </div> */}
       </section>
     </Container>
   )
@@ -615,7 +615,7 @@ export default function Pricing({
 
         <HuongDan />
         <UngDung />
-        <DichVu />
+        {/* <DichVu /> */}
 
         {/* <Testimonial /> */}
       </main>

@@ -395,192 +395,201 @@ export default function FortuneNewEditForm({ currentData, addType }: Props) {
   return (
     <>
       {isProcessing && <ProcessingScreen />}
-      <CardLayout className="bg-white">
-        <FormProvider
-          methods={methods}
-          onSubmit={handleSubmit(onSubmit)}
-          className="grid grid-cols-1 gap-y-4 bg-zinc-50 select-none dark:bg-zinc-900"
-        >
-          <Fieldset disabled={isProcessing}>
-            <CardBody className="space-y-4">
-              <RHFTextField
-                name="title"
-                label="Tiêu đề"
-                placeholder="Nhập tiêu đề"
-                required
-              />
-              <Field className="gap-3">
-                <Label className="flex items-center gap-2">
-                  Mô tả / Ghi chú{' '}
-                  <PencilIcon
-                    className="h4 w-4"
-                    onClick={() => setIsOpenDescriptionDialog(true)}
-                  />
-                </Label>
-                <Text>{description}</Text>
-              </Field>
 
-              <Dialog
-                open={isOpenDescriptionDialog}
-                onClose={setIsOpenDescriptionDialog}
-              >
-                <DialogTitle>Nhập Mô tả / Ghi chú</DialogTitle>
+      <div className="block sm:hidden">
+        Trang Tuỳ chọn hiện thị tốt nhất khi ở chế độ máy tính
+      </div>
+      <div className="hidden sm:block">
+        <CardLayout>
+          <FormProvider
+            methods={methods}
+            onSubmit={handleSubmit(onSubmit)}
+            className="grid grid-cols-1 gap-y-4 select-none md:bg-zinc-100 dark:bg-zinc-900"
+          >
+            <Fieldset disabled={isProcessing}>
+              <CardBody className="space-y-4">
+                <RHFTextField
+                  name="title"
+                  label="Tiêu đề"
+                  placeholder="Nhập tiêu đề"
+                  required
+                />
+                <Field className="gap-3">
+                  <Label className="flex items-center gap-2">
+                    Mô tả / Ghi chú{' '}
+                    <PencilIcon
+                      className="h4 w-4"
+                      onClick={() => setIsOpenDescriptionDialog(true)}
+                    />
+                  </Label>
+                  <Text>{description}</Text>
+                </Field>
 
-                <DialogBody>
-                  <RHFTextAreas
-                    name="description"
-                    placeholder="Nhập mô tả"
-                    rows={10}
-                    maxLength={1000}
-                  />
-                </DialogBody>
-                <DialogActions>
-                  <Button
-                    variant="outline"
-                    onClick={() => setIsOpenDescriptionDialog(false)}
-                  >
-                    Cancel
-                  </Button>
-                </DialogActions>
-              </Dialog>
-
-              <Divider className="my-3" />
-
-              <TabGroup defaultIndex={2}>
-                <div className="-mx-4 mb-6 flex overflow-x-auto sm:mx-0">
-                  <div className="flex-auto border-b border-gray-200 px-4 sm:px-0">
-                    <TabList className="-mb-px flex space-x-2">
-                      <Tab className="flex flex-row border-b-2 border-transparent px-2 py-3 text-sm font-medium whitespace-nowrap data-[hover]:rounded-lg data-[hover]:border-b-indigo-500 data-[hover]:bg-zinc-100 data-[selected]:rounded-lg data-[selected]:border-b-indigo-500 data-[selected]:bg-zinc-100 data-[selected]:text-lg">
-                        <Text>🎉 Trúng giải</Text>
-                        <Badge>{winners?.length || 0}</Badge>
-                      </Tab>
-                      <Tab className="flex flex-row border-b-2 border-transparent px-2 py-3 text-sm font-medium whitespace-nowrap data-[hover]:rounded-lg data-[hover]:border-b-indigo-500 data-[hover]:bg-zinc-100 data-[selected]:rounded-lg data-[selected]:border-b-indigo-500 data-[selected]:bg-zinc-100 data-[selected]:text-lg">
-                        <Text>🎟️ Người chơi</Text>
-                        <Badge>{persons?.length}</Badge>
-                      </Tab>
-                      <Tab className="flex flex-row border-b-2 border-transparent px-2 py-3 text-sm font-medium whitespace-nowrap data-[hover]:rounded-lg data-[hover]:border-b-indigo-500 data-[hover]:bg-zinc-100 data-[selected]:rounded-lg data-[selected]:border-b-indigo-500 data-[selected]:bg-zinc-100 data-[selected]:text-lg">
-                        <Text>🏆 Giải thưởng</Text>
-                        <Badge className="font-bold">
-                          {_.sumBy(prizes, 'qty')} / {prizes.length}
-                        </Badge>
-                      </Tab>
-                    </TabList>
-                  </div>
-                </div>
-
-                <TabPanels as={Fragment}>
-                  {/* {nhap danh sach trung giai} */}
-                  <TabPanel>
-                    <WheelWinnersForm />
-                  </TabPanel>
-
-                  {/* {nhap danh sach nguoi choi} */}
-                  <TabPanel>
-                    <WheelPersonsForm />
-                  </TabPanel>
-
-                  {/* {nhap giai thuong} */}
-                  <TabPanel>
-                    <WheelPrizesForm />
-                  </TabPanel>
-                </TabPanels>
-              </TabGroup>
-            </CardBody>
-            <CardFooter className="flex flex-col justify-between gap-2 lg:flex-row">
-              <Flex className="align-center flex-row items-start gap-2">
-                <Button variant="secondary" onClick={handleOnClickUseExample}>
-                  Sử dụng dữ liệu mẫu
-                </Button>
-                <Button variant="secondary" onClick={() => setIsDeleting(true)}>
-                  <TrashIcon />
-                </Button>
                 <Dialog
-                  open={isDeleting}
-                  onClose={setIsDeleting}
-                  className="z-50"
+                  open={isOpenDescriptionDialog}
+                  onClose={setIsOpenDescriptionDialog}
                 >
-                  <DialogTitle>Xóa vòng quay</DialogTitle>
-                  <DialogBody className="flex flex-col gap-2">
-                    <Heading>Bạn có chắc chắn muốn xóa không?</Heading>
-                    <Text>
-                      <Strong>
-                        Chú ý: Dữ liệu sẽ không thể khôi phục lại được.
-                      </Strong>
-                    </Text>
+                  <DialogTitle>Nhập Mô tả / Ghi chú</DialogTitle>
+
+                  <DialogBody>
+                    <RHFTextAreas
+                      name="description"
+                      placeholder="Nhập mô tả"
+                      rows={10}
+                      maxLength={1000}
+                    />
                   </DialogBody>
-                  <DialogActions className="flex justify-end gap-2">
+                  <DialogActions>
                     <Button
                       variant="outline"
-                      onClick={() => setIsDeleting(false)}
+                      onClick={() => setIsOpenDescriptionDialog(false)}
                     >
-                      Hủy
-                    </Button>
-                    <Button color="red" onClick={onDelete}>
-                      Xóa
+                      Cancel
                     </Button>
                   </DialogActions>
                 </Dialog>
-              </Flex>
-              <Flex className="gap-2">
-                {/* {errors && errors.errorMessage && (
+
+                <Divider className="my-3" />
+
+                <TabGroup defaultIndex={2}>
+                  <div className="-mx-4 mb-6 flex overflow-x-auto sm:mx-0">
+                    <div className="flex-auto border-b border-gray-200 px-4 sm:px-0">
+                      <TabList className="-mb-px flex space-x-2">
+                        <Tab className="flex flex-row border-b-2 border-transparent px-2 py-3 text-sm font-medium whitespace-nowrap data-[hover]:rounded-lg data-[hover]:border-b-indigo-500 data-[hover]:bg-zinc-100 data-[selected]:rounded-lg data-[selected]:border-b-indigo-500 data-[selected]:bg-zinc-100 data-[selected]:text-lg">
+                          <Text>🎉 Trúng giải</Text>
+                          <Badge>{winners?.length || 0}</Badge>
+                        </Tab>
+                        <Tab className="flex flex-row border-b-2 border-transparent px-2 py-3 text-sm font-medium whitespace-nowrap data-[hover]:rounded-lg data-[hover]:border-b-indigo-500 data-[hover]:bg-zinc-100 data-[selected]:rounded-lg data-[selected]:border-b-indigo-500 data-[selected]:bg-zinc-100 data-[selected]:text-lg">
+                          <Text>🎟️ Người chơi</Text>
+                          <Badge>{persons?.length}</Badge>
+                        </Tab>
+                        <Tab className="flex flex-row border-b-2 border-transparent px-2 py-3 text-sm font-medium whitespace-nowrap data-[hover]:rounded-lg data-[hover]:border-b-indigo-500 data-[hover]:bg-zinc-100 data-[selected]:rounded-lg data-[selected]:border-b-indigo-500 data-[selected]:bg-zinc-100 data-[selected]:text-lg">
+                          <Text>🏆 Giải thưởng</Text>
+                          <Badge className="font-bold">
+                            {_.sumBy(prizes, 'qty')} / {prizes.length}
+                          </Badge>
+                        </Tab>
+                      </TabList>
+                    </div>
+                  </div>
+
+                  <TabPanels as={Fragment}>
+                    {/* {nhap danh sach trung giai} */}
+                    <TabPanel>
+                      <WheelWinnersForm />
+                    </TabPanel>
+
+                    {/* {nhap danh sach nguoi choi} */}
+                    <TabPanel>
+                      <WheelPersonsForm />
+                    </TabPanel>
+
+                    {/* {nhap giai thuong} */}
+                    <TabPanel>
+                      <WheelPrizesForm />
+                    </TabPanel>
+                  </TabPanels>
+                </TabGroup>
+              </CardBody>
+              <CardFooter className="flex flex-col justify-between gap-2 lg:flex-row">
+                <Flex className="align-center flex-row items-start gap-2">
+                  <Button variant="secondary" onClick={handleOnClickUseExample}>
+                    Sử dụng dữ liệu mẫu
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    onClick={() => setIsDeleting(true)}
+                  >
+                    <TrashIcon />
+                  </Button>
+                  <Dialog
+                    open={isDeleting}
+                    onClose={setIsDeleting}
+                    className="z-50"
+                  >
+                    <DialogTitle>Xóa vòng quay</DialogTitle>
+                    <DialogBody className="flex flex-col gap-2">
+                      <Heading>Bạn có chắc chắn muốn xóa không?</Heading>
+                      <Text>
+                        <Strong>
+                          Chú ý: Dữ liệu sẽ không thể khôi phục lại được.
+                        </Strong>
+                      </Text>
+                    </DialogBody>
+                    <DialogActions className="flex justify-end gap-2">
+                      <Button
+                        variant="outline"
+                        onClick={() => setIsDeleting(false)}
+                      >
+                        Hủy
+                      </Button>
+                      <Button color="red" onClick={onDelete}>
+                        Xóa
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                </Flex>
+                <Flex className="gap-2">
+                  {/* {errors && errors.errorMessage && (
                   <Badge color="red" className="text-red-500">
                     {errors.errorMessage.message}
                   </Badge>
                 )} */}
 
-                <SettingBtn type={addType} />
+                  <SettingBtn type={addType} />
 
-                {currentData?.id ? (
-                  <>
-                    <Button variant="secondary" href={path.new}>
-                      Tạo mới
-                    </Button>
-                    <Button variant="outline" onClick={() => reset()}>
+                  {currentData?.id ? (
+                    <>
+                      <Button variant="secondary" href={path.new}>
+                        Tạo mới
+                      </Button>
+                      <Button variant="outline" onClick={() => reset()}>
+                        Reset
+                      </Button>
+                      <Button
+                        variant="secondary"
+                        href={`${path.detail(currentData?.id)}?autoPlay=true&player=${currentData?.persons[0]?.manv}`}
+                      >
+                        Quay Tự Động
+                      </Button>
+                      <Button
+                        variant="secondary"
+                        onClick={handleOnClickPlay}
+                        // href={`${path.detail(currentData?.id)}`}
+                      >
+                        Quay
+                      </Button>
+                      <Dialog open={openConFirm} onClose={setOpenConFirm}>
+                        <DialogTitle>Cảnh Báo</DialogTitle>
+                        <DialogDescription>
+                          Có thay đổi dữ liệu chưa được lưu lại. Bạn có muốn lưu
+                          lại trước khi quay không?
+                        </DialogDescription>
+
+                        <DialogActions>
+                          <Button onClick={DiaglogSubmit}>Lưu</Button>
+                          <Button
+                            variant="outline"
+                            href={`${path.detail(currentData?.id)}`}
+                          >
+                            Không lưu
+                          </Button>
+                        </DialogActions>
+                      </Dialog>
+                    </>
+                  ) : (
+                    <Button variant="secondary" onClick={() => reset()}>
                       Reset
                     </Button>
-                    <Button
-                      variant="secondary"
-                      href={`${path.detail(currentData?.id)}?autoPlay=true&player=${currentData?.persons[0]?.manv}`}
-                    >
-                      Quay Tự Động
-                    </Button>
-                    <Button
-                      variant="secondary"
-                      onClick={handleOnClickPlay}
-                      // href={`${path.detail(currentData?.id)}`}
-                    >
-                      Quay
-                    </Button>
-                    <Dialog open={openConFirm} onClose={setOpenConFirm}>
-                      <DialogTitle>Cảnh Báo</DialogTitle>
-                      <DialogDescription>
-                        Có thay đổi dữ liệu chưa được lưu lại. Bạn có muốn lưu
-                        lại trước khi quay không?
-                      </DialogDescription>
+                  )}
 
-                      <DialogActions>
-                        <Button onClick={DiaglogSubmit}>Lưu</Button>
-                        <Button
-                          variant="outline"
-                          href={`${path.detail(currentData?.id)}`}
-                        >
-                          Không lưu
-                        </Button>
-                      </DialogActions>
-                    </Dialog>
-                  </>
-                ) : (
-                  <Button variant="secondary" onClick={() => reset()}>
-                    Reset
-                  </Button>
-                )}
-
-                <Button type="submit">Lưu</Button>
-              </Flex>
-            </CardFooter>
-          </Fieldset>
-        </FormProvider>
-      </CardLayout>
+                  <Button type="submit">Lưu</Button>
+                </Flex>
+              </CardFooter>
+            </Fieldset>
+          </FormProvider>
+        </CardLayout>
+      </div>
     </>
   )
 }

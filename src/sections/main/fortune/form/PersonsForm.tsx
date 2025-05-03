@@ -74,6 +74,7 @@ const columns = [
 
   columnHelper.accessor('manv', {
     cell: (info) => <span className="runcate">{info.getValue()}</span>,
+    size: 50,
     header: ({ column }) => (
       <span className="flex w-full items-center justify-between gap-2">
         <strong>Mã</strong>
@@ -243,7 +244,12 @@ export default function WheelPersonsForm() {
         <ColumnChooser />
       </Box> */}
 
-      <Table grid dense striped className="h-96 overflow-y-scroll">
+      <Table
+        grid
+        dense
+        striped
+        className="h-96 overflow-x-auto overflow-y-scroll"
+      >
         <TableHead>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow className="bg-zinc-100" key={headerGroup.id}>

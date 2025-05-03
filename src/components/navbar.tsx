@@ -4,6 +4,7 @@ import { useAuthContext } from '@/auth/hooks'
 import { useCustomRouter } from '@/hooks/useCustomRouter'
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 import {
+  CloseButton,
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
@@ -146,9 +147,13 @@ function MobileNav() {
             }}
             key={href}
           >
-            <Link href={href} className="text-base font-medium text-gray-950">
+            <CloseButton
+              as={Link}
+              href={href}
+              className="text-base font-medium text-gray-950"
+            >
               {label}
-            </Link>
+            </CloseButton>
           </motion.div>
         ))}
         <motion.div
