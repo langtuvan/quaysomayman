@@ -14,11 +14,11 @@ import {
 } from '@heroicons/react/16/solid'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
-  title: 'Giới Thiệu',
-  description:
-    'Tham gia Con Số May Mắn ngay hôm nay để có cơ hội nhận nhiều phần quà hấp dẫn. Quay miễn phí, trúng thưởng thật, cơ hội dành cho tất cả mọi người!',
-}
+// export const metadata: Metadata = {
+//   title: 'Giới Thiệu',
+//   description:
+//     'Tham gia Con Số May Mắn ngay hôm nay để có cơ hội nhận nhiều phần quà hấp dẫn. Quay miễn phí, trúng thưởng thật, cơ hội dành cho tất cả mọi người!',
+// }
 
 const tiers = [
   {
@@ -582,15 +582,11 @@ function DichVu() {
   )
 }
 
-export default function Pricing({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined }
-}) {
-  let tier =
-    typeof searchParams.tier === 'string'
-      ? tiers.find(({ slug }) => slug === searchParams.tier)!
-      : tiers[0]
+export default function Pricing() {
+  // let tier =
+  //   typeof searchParams.tier === 'string'
+  //     ? tiers.find(({ slug }) => slug === searchParams.tier)!
+  //     : tiers[0]
 
   return (
     <>
