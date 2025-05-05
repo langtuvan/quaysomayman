@@ -1,0 +1,28 @@
+export default () => ({
+  FRONTEND_URL: process.env.FRONTEND_URL,
+  BACKEND_URl: process.env.BACKEND_URL,
+  PORT: process.env.PORT || 5000,
+  //JWT_SECRET
+  JWT_SECRET: process.env.JWT_SECRET,
+  // Dislpay
+  FRONTEND_DISPLAY_NAME: 'Web Next App',
+  // GOOGLE AUTH
+  GOOGLE_AUTH_CLIENT_ID: process.env.GOOGLE_AUTH_CLIENT_ID,
+  GOOGLE_AUTH_CLIENT_SECRET: process.env.GOOGLE_AUTH_CLIENT_SECRET,
+  GOOGLE_AUTH_CALLBACK_URL: process.env.GOOGLE_AUTH_CALLBACK_URL,
+  //GOOGLE_AUTH_CALLBACK_URL: `https://api.webnextapp.com/auth/google/callback`,
+  // FACEBOOK AUTH
+  FACEBOOK_AUTH_CLIENT_ID: process.env.FACEBOOK_AUTH_CLIENT_ID,
+  FACEBOOK_AUTH_CLIENT_SECRET: process.env.FACEBOOK_AUTH_CLIENT_SECRET,
+  FACEBOOK_AUTH_CALLBACK_URL: process.env.FACEBOOK_AUTH_CALLBACK_URL,
+  //FACEBOOK_AUTH_CALLBACK_URL: `${process.env.BACKEND_URL}/auth/facebook/callback`,
+  // SSO CONFIG
+  //REDIRECT_SSO_LOGIN_SUCCESS: `${FRONTEND_URL}`,
+  SSO_DEFAULT_PASSWORD: '~!@#$%^&*(',
+
+  CONFIG: {
+    PLAN: {
+      MAX_FORTUNE: 3,
+    },
+  },
+});
