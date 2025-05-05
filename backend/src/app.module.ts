@@ -22,8 +22,6 @@ import { FortuneModule } from './router/v1/fortune/fortune.module';
 // import { GraphQLFormattedError } from 'graphql';
 import { CaslModule } from './auth/cals/casl.module';
 
-// import { graphqlUploadExpress } from 'graphql-upload';
-import { UploadModule } from './Upload/upload.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { MulterModule } from '@nestjs/platform-express';
 
@@ -34,9 +32,7 @@ import { TicketModule } from './router/v1/ticket/ticket.module';
 import { GraphQLFormattedError } from 'graphql';
 
 import { DataModule } from './router/v1/data/data.module';
-import { CategoryModule } from './router/v1/category/category.module';
-import { SubCategoryModule } from './router/v1/subCategory/subCategory.module';
-import { PageModule } from './router/v1/page/page.module';
+
 
 @Module({
   imports: [
@@ -68,17 +64,13 @@ import { PageModule } from './router/v1/page/page.module';
     ThrottlerModule,
     //Modules GraphQl
     AuthModule,
-    UploadModule,
     DataModule,
     UserModule,
     FortuneModule,
     MailModule,
     TicketModule,
 
-    // page
-    CategoryModule,
-    SubCategoryModule,
-    PageModule,
+
 
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
@@ -87,16 +79,9 @@ import { PageModule } from './router/v1/page/page.module';
     //Router Controller
     RouterModule.register([
       { path: 'auth', module: AuthModule },
-      { path: 'upload', module: UploadModule },
+
       { path: 'getData', module: DataModule },
-      {
-        path: 'v1',
-        children: [
-          { path: 'category', module: CategoryModule },
-          { path: 'subCategory', module: SubCategoryModule },
-          { path: 'page', module: PageModule },
-        ],
-      },
+
     ]),
     MulterModule.register({
       dest: './upload',

@@ -27,7 +27,7 @@ export default async function MainLayout({
   return (
     <div className="overflow-hidden">
       <main className="pb-2">
-        <div className="relative">
+        <div className="relative min-h-screen">
           <Gradient className="absolute inset-2 bottom-0 rounded-4xl ring-1 ring-black/5 ring-inset" />
           <Container className="relative">
             <Navbar

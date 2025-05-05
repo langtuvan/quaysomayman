@@ -57,55 +57,6 @@ type FortuneModel {
   updatedAt: DateTime!
 }
 
-type CategoryModel {
-  _id: String!
-  displayName: String!
-  description: String!
-  slug: String
-  imageSrc: String
-  content: String
-  isProtect: Boolean
-  createdBy: UserType!
-  updatedBy: UserType
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  isMenu: Boolean
-  subCategories: [SubCategoryModel!]!
-}
-
-type SubCategoryModel {
-  _id: String!
-  displayName: String!
-  description: String!
-  slug: String
-  imageSrc: String
-  content: String
-  isProtect: Boolean
-  createdBy: UserType!
-  updatedBy: UserType
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  isMenu: Boolean
-  category: CategoryModel!
-  pages: [SubCategoryModel!]!
-}
-
-type PageModel {
-  _id: String!
-  displayName: String!
-  description: String!
-  slug: String
-  imageSrc: String
-  content: String
-  isProtect: Boolean
-  createdBy: UserType!
-  updatedBy: UserType
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  category: CategoryModel!
-  subCategory: SubCategoryModel!
-}
-
 type Query {
   users: [UserType!]!
   user(id: String!): UserType!
@@ -113,13 +64,6 @@ type Query {
   randomFortunes: [FortuneModel!]!
   fortune(id: String!): FortuneModel!
   guestFortune(id: String!): FortuneModel!
-  subCategories: [SubCategoryModel!]!
-  subCategory(id: String!): SubCategoryModel!
-  subCategoryWithSlug(catSlug: String!, subCatSlug: String!): SubCategoryModel!
-  categories: [CategoryModel!]!
-  category(id: String!): CategoryModel!
-  pages: [PageModel!]!
-  page(id: String!): PageModel!
 }
 
 type Mutation {
