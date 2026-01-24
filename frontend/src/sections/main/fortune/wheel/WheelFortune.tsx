@@ -334,7 +334,7 @@ export default function WheelFortuneForm({
         </DialogActions>
       </Dialog>
       <div className="flex flex-col items-center justify-center gap-4">
-        <h1 className="font-display mb-16 text-6xl/[0.9] font-medium tracking-tight text-balance text-gray-950 sm:text-8xl/[0.8] md:text-6xl/[0.8]">
+        <h1 className="font-display mb-6 text-6xl/[0.9] font-medium tracking-tight text-balance text-gray-950 sm:text-8xl/[0.8] md:text-6xl/[0.8]">
           Vòng Quay May Mắn
         </h1>
         <div className="relative mt-6">
@@ -392,7 +392,7 @@ export default function WheelFortuneForm({
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Fieldset
           disabled={spinning}
-          className="mt-9 flex flex-col items-center justify-center gap-4"
+          className="mt-4 flex flex-col items-center justify-center gap-4"
         >
           <RHFTextField
             disabled={demo}
@@ -402,22 +402,6 @@ export default function WheelFortuneForm({
             type="text"
             placeholder="Nhập Mã "
           />
-          {/* 
-          <Field>
-            <Label>Nhập Mã</Label>
-
-            <Input
-              disabled={demo}
-              name="player"
-              type="text"
-              placeholder="Nhập Mã "
-              className={clsx(
-                'block w-full rounded-lg border border-transparent shadow-sm ring-1 ring-black/10',
-                'px-[calc(--spacing(2)-1px)] py-[calc(--spacing(1.5)-1px)] text-base/6 sm:text-sm/6',
-                'w-48 data-focus:outline data-focus:outline-2 data-focus:-outline-offset-1 data-focus:outline-black',
-              )}
-            />
-          </Field> */}
 
           <Button
             type="submit"

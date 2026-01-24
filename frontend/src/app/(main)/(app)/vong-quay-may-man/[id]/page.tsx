@@ -76,7 +76,7 @@ export default function WheelPage() {
 
   return (
     <>
-      <div className="mx-auto my-6 flex flex-col items-center justify-around gap-6 text-center leading-6">
+      <div className="mx-auto flex flex-col items-center justify-around gap-6 text-center leading-6">
         <WheelFortune
           currentData={fortune}
           getPlayer={player}

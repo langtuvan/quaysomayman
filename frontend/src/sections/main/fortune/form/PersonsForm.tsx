@@ -73,7 +73,7 @@ const columns = [
   }),
 
   columnHelper.accessor('manv', {
-    cell: (info) => <span className="runcate">{info.getValue()}</span>,
+    cell: (info) => <span className="truncate">{info.getValue()}</span>,
     size: 50,
     header: ({ column }) => (
       <span className="flex w-full items-center justify-between gap-2">
@@ -83,7 +83,7 @@ const columns = [
     ),
   }),
   columnHelper.accessor('name', {
-    cell: (info) => <span className="runcate">{info.getValue()}</span>,
+    cell: (info) => <span className="truncate">{info.getValue()}</span>,
     header: ({ column }) => (
       <span className="flex w-full items-center justify-between gap-2">
         <strong>Họ Tên</strong>
