@@ -1,36 +1,5 @@
 import { gql } from '@apollo/client'
 
-// // FRAGMENT ---------------------------------------
-// export const FORTUNE_FRAGMENT = gql`
-//   fragment FortuneFields on Fortune {
-//     id
-//     title
-//     description
-//     prizes {
-//       id
-//       name
-//       qty
-//     }
-//     persons {
-//       manv
-//       name
-//       email
-//       phone
-//     }
-//     winners {
-//       manv
-//       name
-//       prizeId
-//       prize
-//     }
-
-//     createdBy {
-//       id
-//     }
-//   }
-// `
-// FRAGMENT ---------------------------------------
-
 export const GET_WHEEL_FORTUNES_BY_USER = gql`
   query wheelFortunes {
     wheelFortunes {
@@ -41,7 +10,6 @@ export const GET_WHEEL_FORTUNES_BY_USER = gql`
     }
   }
 `
-
 export const GET_RANDOM_FORTUNES_BY_USER = gql`
   query randomFortunes {
     randomFortunes {
@@ -52,7 +20,6 @@ export const GET_RANDOM_FORTUNES_BY_USER = gql`
     }
   }
 `
-
 export const GET_FORTUNE = gql`
   query fortune($id: String!) {
     fortune(id: $id) {

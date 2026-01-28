@@ -2,9 +2,11 @@ name: CD - Deploy to VPS
 
 on:
   push:
-    branches: [main]
-    paths: ["backend/**"] # Only runs if files in 'backend' change
-
+    branches:
+      - main
+    paths:
+      - "backend/**"
+      - ".github/workflows/cd.yml"
   workflow_dispatch:
     inputs:
       environment:
@@ -21,43 +23,31 @@ jobs:
     name: Deploy ${{ github.event.inputs.environment || 'production' }}
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment || 'production' }}
+    defaults:
+      run:
+        working-directory: backend
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 8
-
-      - name: Use Node.js 20
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "pnpm"
-          cache-dependency-path: "backend/pnpm-lock.yaml"
-
       - name: Install dependencies
-        working-directory: ./backend
-        run: pnpm install --frozen-lockfile
+        run: yarn install --frozen-lockfile
 
       - name: Build
-        working-directory: ./backend
-        run: pnpm run build
+        run: yarn build
 
       - name: Prune dev dependencies
-        working-directory: ./backend
-        run: pnpm install --prod --frozen-lockfile
+        run: yarn install --production --frozen-lockfile
 
       - name: Package artifact
-        working-directory: ./backend
         run: |
           mkdir -p deploy
           cp -r dist deploy/
           cp -r node_modules deploy/
           cp package.json ecosystem.config.js healthcheck.js deploy/
-          tar -czf deploy.tar.gz -C deploy .
+          cd ..
+          tar -czf backend/deploy.tar.gz -C backend/deploy .
 
       - name: Upload package to VPS
         uses: appleboy/scp-action@v0.1.7
@@ -81,8 +71,8 @@ jobs:
             set -e
             ENVIRONMENT="${{ github.event.inputs.environment || 'production' }}"
             APP_PORT=${{ secrets.APP_PORT || 5000 }}
-            DEPLOY_DIR="/var/apps/booking-backend"
-            BACKUP_DIR="/var/backups/booking-backend"
+            DEPLOY_DIR="/var/apps/${{ secrets.PM2_APP_NAME || 'backend-qsmm' }}"
+            BACKUP_DIR="/var/backups/${{ secrets.PM2_APP_NAME || 'backend-qsmm' }}"
 
             echo "Creating backup of current deployment if exists..."
             if [ -d "$DEPLOY_DIR" ]; then
@@ -93,7 +83,7 @@ jobs:
 
             echo "Preparing deployment directory..."
             mkdir -p "$DEPLOY_DIR"
-            tar -xzf /tmp/deploy.tar.gz -C "$DEPLOY_DIR"
+            tar -xzf /tmp/deploy.tar.gz --warning=no-timestamp -C "$DEPLOY_DIR"
             rm /tmp/deploy.tar.gz
 
             cd "$DEPLOY_DIR"
@@ -109,30 +99,17 @@ jobs:
             CORS_ORIGIN=${{ secrets.CORS_ORIGIN || '*' }}
             EOL
 
-            mkdir -p logs
+
 
             echo "Restarting application with PM2..."
-            if pm2 describe booking-api  > /dev/null 2>&1; then
-              pm2 restart booking-api  --update-env
+            if pm2 describe ${{ secrets.PM2_APP_NAME || 'backend-qsmm' }}  > /dev/null 2>&1; then
+              pm2 restart ${{ secrets.PM2_APP_NAME || 'backend-qsmm' }}  --update-env
             else
               pm2 start ecosystem.config.js --env "$ENVIRONMENT"
             fi
             pm2 save
 
-             echo "Deployment successful"
+             echo "Deployment successful!"
 
             echo "Health check..."
             sleep 10
-
-      # - name: Notify (Slack)
-      #   if: always()
-      #   uses: 8398a7/action-slack@v3
-      #   with:
-      #     status: ${{ job.status }}
-      #     text: |
-      #       Deployment to ${{ github.event.inputs.environment || 'production' }}
-      #       Result: ${{ job.status }}
-      #       Commit: ${{ github.sha }}
-      #       Author: ${{ github.actor }}
-      #    webhook: ${{ secrets.SLACK_WEBHOOK }}
-      #   continue-on-error: true

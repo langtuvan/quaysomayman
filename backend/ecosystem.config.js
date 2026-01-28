@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'booking-api',
+      name: process.env.PM2_APP_NAME || 'backend',
       script: './dist/main.js',
       instances: 1,
       exec_mode: 'cluster',
