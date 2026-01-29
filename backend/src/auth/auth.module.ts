@@ -11,10 +11,6 @@ import { FacebookStrategy } from './strategy/FacebookStrategy';
 import { JwtStrategy } from './strategy/JwtStrategy';
 import { PassportModule } from '@nestjs/passport';
 import { JwtAuthGuard } from './jwt-auth.guard';
-import { MailService } from 'src/Mailer/mail.service';
-import { TicketService } from 'src/router/v1/ticket/ticket.service';
-import { TicketModule } from 'src/router/v1/ticket/ticket.module';
-
 
 @Module({
   imports: [
@@ -29,13 +25,12 @@ import { TicketModule } from 'src/router/v1/ticket/ticket.module';
       }),
     }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
-    TicketModule
+
   ],
   controllers: [AuthController],
   providers: [
     AuthService,
     UserService,
-    MailService,
     GoogleStrategy,
     ConfigService,
     FacebookStrategy,

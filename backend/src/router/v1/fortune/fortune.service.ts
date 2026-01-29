@@ -24,7 +24,7 @@ export class FortuneService {
     id: string,
     update: any,
     options: any = { new: true },
-  ): Promise<Fortune> {
+  ): Promise<any> {
     const data = await this.postModel
       .findByIdAndUpdate(id, update, options)
       .populate(['createdBy'])

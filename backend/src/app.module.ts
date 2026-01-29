@@ -1,15 +1,11 @@
-import { BadRequestException, Module, ValidationPipe } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import configuration from './config/configuration';
-import { APP_FILTER, APP_GUARD, APP_PIPE, RouterModule } from '@nestjs/core';
+import { RouterModule } from '@nestjs/core';
 // Grapql
-import {
-  ApolloDriver,
-  ApolloDriverConfig,
-  ValidationError,
-} from '@nestjs/apollo';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 // Passport Auth JWT
 import { PassportModule } from '@nestjs/passport';
 // others
@@ -18,21 +14,11 @@ import { join } from 'path';
 import { UserModule } from './router/v1/user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { FortuneModule } from './router/v1/fortune/fortune.module';
-// import { ValidationError } from 'class-validator';
-// import { GraphQLFormattedError } from 'graphql';
 import { CaslModule } from './auth/cals/casl.module';
-
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { MulterModule } from '@nestjs/platform-express';
-
-import GraphQLJSON from 'graphql-type-json';
-import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
-import { MailModule } from './Mailer/mail.module';
-import { TicketModule } from './router/v1/ticket/ticket.module';
+import { ThrottlerModule } from '@nestjs/throttler';
 import { GraphQLFormattedError } from 'graphql';
-
-import { DataModule } from './router/v1/data/data.module';
-
 
 @Module({
   imports: [
@@ -64,28 +50,10 @@ import { DataModule } from './router/v1/data/data.module';
     ThrottlerModule,
     //Modules GraphQl
     AuthModule,
-    DataModule,
     UserModule,
     FortuneModule,
-    MailModule,
-    TicketModule,
-
-
-
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'client'),
-      //exclude: ['/public/(.*)'],
-    }),
     //Router Controller
-    RouterModule.register([
-      { path: 'auth', module: AuthModule },
-
-      { path: 'getData', module: DataModule },
-
-    ]),
-    MulterModule.register({
-      dest: './upload',
-    }),
+    RouterModule.register([{ path: 'auth', module: AuthModule }]),
     ThrottlerModule.forRoot([
       {
         ttl: 60000,
@@ -93,11 +61,6 @@ import { DataModule } from './router/v1/data/data.module';
       },
     ]),
   ],
-  providers: [
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: ThrottlerGuard,
-    // },
-  ],
+  providers: [],
 })
 export class AppModule {}

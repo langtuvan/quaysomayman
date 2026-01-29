@@ -23,27 +23,15 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 import { ConfigService } from '@nestjs/config';
 import { ConfigServiceModel } from 'src/type/ConfigService';
 
-import {
-  ChangePasswordDto,
-  ForgotChangePasswordDto,
-  ForgotPasswordDto,
-  SignInLocalDto,
-  SignUpLocalDto,
-  VerifyOtpDto,
-} from './dto/auth.dto';
+
 import * as _ from 'lodash';
-import { User } from 'src/schemas/user.schema';
-import { TicketService } from 'src/router/v1/ticket/ticket.service';
-import { MailService } from 'src/Mailer/mail.service';
+
 
 @Controller()
 export class AuthController {
   constructor(
     private readonly userService: UserService,
     private readonly authService: AuthService,
-    private readonly ticketService: TicketService,
-    private readonly mailService: MailService,
-    private readonly configService: ConfigService<ConfigServiceModel>,
   ) {}
 
   @Post('/signOut')
