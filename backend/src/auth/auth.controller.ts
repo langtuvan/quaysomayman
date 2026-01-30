@@ -23,9 +23,7 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 import { ConfigService } from '@nestjs/config';
 import { ConfigServiceModel } from 'src/type/ConfigService';
 
-
 import * as _ from 'lodash';
-
 
 @Controller()
 export class AuthController {
@@ -37,7 +35,6 @@ export class AuthController {
   @Post('/signOut')
   @UseGuards(JwtAuthGuard)
   async logout(@Request() req, @Response() res) {
-
     // Clear JWT from cookie if using cookies
     res.clearCookie('jwt');
 
@@ -51,7 +48,6 @@ export class AuthController {
       message: 'Logged out successfully',
     });
   }
-
 
   // me
   @Get('/me')
@@ -93,7 +89,6 @@ export class AuthController {
     };
   }
 
-
   // SSO
   @Get('/google')
   @UseGuards(AuthGuard('google'))
@@ -111,6 +106,8 @@ export class AuthController {
     const token = await this.authService.createAccessToken(user);
 
     const referer = req?.headers?.referer || req?.Refererer;
+
+    console.log('Referer:', referer);
 
     res
       .set('accessToken', token.accessToken)
