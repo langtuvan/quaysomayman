@@ -43,6 +43,6 @@ async function bootstrap() {
 
   // app.use(graphqlUploadExpress());
 
-  await app.listen(process.env.APP_PORT || 5000);
+  await app.listen(process.env.APP_PORT || 5001);
 }
 bootstrap();
