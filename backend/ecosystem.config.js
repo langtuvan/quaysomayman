@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'qsmm-backend',
-      script: './dist/main.js',
+      script: './dist/src/main.js',
       instances: 1,
       exec_mode: 'cluster',
       autorestart: true,
