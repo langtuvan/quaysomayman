@@ -91,12 +91,15 @@ jobs:
             echo "Writing .env file......"
             cat > .env << 'EOL'
             NODE_ENV=${{ github.event.inputs.environment || 'production' }}
-            PORT=${{ secrets.APP_PORT || 5000 }}
-            MONGODB_URI=${{ secrets.MONGODB_URI }}
+            APP_PORT=${{ secrets.APP_PORT || 5000 }}
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
             JWT_SECRET=${{ secrets.JWT_SECRET }}
             JWT_EXPIRES_IN=${{ secrets.JWT_EXPIRES_IN || '24h' }}
             COOKIE_SECRET=${{ secrets.COOKIE_SECRET }}
             CORS_ORIGIN=${{ secrets.CORS_ORIGIN || '*' }}
+            GOOGLE_AUTH_CALLBACK_URL=${{ secrets.GOOGLE_AUTH_CALLBACK_URL }}
+            GOOGLE_AUTH_CLIENT_ID=${{ secrets.GOOGLE_AUTH_CLIENT_ID }}
+            GOOGLE_AUTH_CLIENT_SECRET=${{ secrets.GOOGLE_AUTH_CLIENT_SECRET }}
             EOL
 
 
