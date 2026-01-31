@@ -1,8 +1,8 @@
 module.exports = {
   apps: [
     {
-      name: process.env.PM2_APP_NAME || 'qsmm-backend',
-      //script: './dist/main.js',
+      name: 'qsmm-backend',
+      script: './dist/main.js',
       instances: 1,
       exec_mode: 'cluster',
       autorestart: true,
@@ -10,7 +10,7 @@ module.exports = {
       max_memory_restart: '1G',
       env_production: {
         NODE_ENV: 'production',
-        APP_PORT: process.env.APP_PORT || 5001,
+        //APP_PORT:  5001,
       },
       error_file: './logs/err.log',
       out_file: './logs/out.log',
