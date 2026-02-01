@@ -118,18 +118,18 @@ export class AuthController {
     //return res.json(token); // You can handle redirection or return a token
   }
 
-  @Get('facebook')
-  @UseGuards(AuthGuard('facebook'))
-  async facebookLogin(): Promise<void> {
-    // Initiates the Facebook OAuth2 login flow
-  }
+  // @Get('facebook')
+  // @UseGuards(AuthGuard('facebook'))
+  // async facebookLogin(): Promise<void> {
+  //   // Initiates the Facebook OAuth2 login flow
+  // }
 
-  @Get('facebook/callback')
-  @UseGuards(AuthGuard('facebook'))
-  async facebookLoginRedirect(@Req() req, @Res() res): Promise<void> {
-    const user = await this.userService.findOrCreateSSOUser(req.user);
-    const token = await this.authService.createAccessToken(user);
-    // Handle redirect or return the JWT token
-    res.json({ user, token }); // Return token or redirect the user as needed
-  }
+  // @Get('facebook/callback')
+  // @UseGuards(AuthGuard('facebook'))
+  // async facebookLoginRedirect(@Req() req, @Res() res): Promise<void> {
+  //   const user = await this.userService.findOrCreateSSOUser(req.user);
+  //   const token = await this.authService.createAccessToken(user);
+  //   // Handle redirect or return the JWT token
+  //   res.json({ user, token }); // Return token or redirect the user as needed
+  // }
 }

@@ -7,7 +7,7 @@ import { AuthController } from './auth.controller';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GoogleStrategy } from './strategy/GoogleStrategy';
-import { FacebookStrategy } from './strategy/FacebookStrategy';
+//import { FacebookStrategy } from './strategy/FacebookStrategy';
 import { JwtStrategy } from './strategy/JwtStrategy';
 import { PassportModule } from '@nestjs/passport';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -33,7 +33,7 @@ import { JwtAuthGuard } from './jwt-auth.guard';
     UserService,
     GoogleStrategy,
     ConfigService,
-    FacebookStrategy,
+    // FacebookStrategy,
     JwtStrategy,
     JwtAuthGuard,
   ],
