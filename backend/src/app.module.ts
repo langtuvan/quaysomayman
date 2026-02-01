@@ -43,7 +43,9 @@ import { GraphQLFormattedError } from 'graphql';
       load: [configuration],
     }),
     //Connect DB
-    MongooseModule.forRoot(process.env.DATABASE_URL),
+    MongooseModule.forRoot(
+      'mongodb+srv://langtuvan:rhRZ5VeS4YYTyA1h@cluster0.omftx.mongodb.net/quaysomayman',
+    ),
     // Test Default Module
     PassportModule,
     CaslModule,
