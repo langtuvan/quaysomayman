@@ -1,12 +1,7 @@
 import {
-  BadRequestException,
-  Body,
-  ConflictException,
   Controller,
   Get,
-  Param,
   Post,
-  Query,
   Req,
   Request,
   Res,
@@ -14,15 +9,11 @@ import {
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-import { Throttle } from '@nestjs/throttler';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from '../router/v1/user/user.service';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './current-user.decorator';
 import { JwtAuthGuard } from './jwt-auth.guard';
-import { ConfigService } from '@nestjs/config';
-import { ConfigServiceModel } from 'src/type/ConfigService';
-
 import * as _ from 'lodash';
 
 @Controller()
@@ -37,10 +28,8 @@ export class AuthController {
   async logout(@Request() req, @Response() res) {
     // Clear JWT from cookie if using cookies
     res.clearCookie('jwt');
-
     // Invalidate the token on the client side
     res.setHeader('Authorization', '');
-
     // Clear user session
     req.user = null;
     return res.status(200).json({
@@ -57,7 +46,6 @@ export class AuthController {
       throw new UnauthorizedException('session expired');
     }
     const { email, name, roles, isAdmin, provider, avatarSrc, id } = user;
-
     const adminProfileMenu = isAdmin
       ? [{ icon: 'ServerIcon', title: 'Trang Quản Trị', url: '/dashboard' }]
       : [];
@@ -93,8 +81,6 @@ export class AuthController {
   @Get('/google')
   @UseGuards(AuthGuard('google'))
   async googleLogin() {
-    // This route is handled by Passport to initiate Google login.
-    // 'redirectUrl' is passed dynamically from the frontend.
   }
 
   @Get('/google/callback')
@@ -102,13 +88,9 @@ export class AuthController {
   async googleAuthRedirect(@Req() req, @Res() res) {
     const user = await this.userService.findOrCreateSSOUser(req.user);
     // Redirect or return JWT token here
-
     const token = await this.authService.createAccessToken(user);
-
     const referer = req?.headers?.referer || req?.Refererer;
-
     console.log('Referer:', referer);
-
     res
       .set('accessToken', token.accessToken)
       .redirect(
@@ -118,18 +100,5 @@ export class AuthController {
     //return res.json(token); // You can handle redirection or return a token
   }
 
-  // @Get('facebook')
-  // @UseGuards(AuthGuard('facebook'))
-  // async facebookLogin(): Promise<void> {
-  //   // Initiates the Facebook OAuth2 login flow
-  // }
 
-  // @Get('facebook/callback')
-  // @UseGuards(AuthGuard('facebook'))
-  // async facebookLoginRedirect(@Req() req, @Res() res): Promise<void> {
-  //   const user = await this.userService.findOrCreateSSOUser(req.user);
-  //   const token = await this.authService.createAccessToken(user);
-  //   // Handle redirect or return the JWT token
-  //   res.json({ user, token }); // Return token or redirect the user as needed
-  // }
 }

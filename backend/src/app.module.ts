@@ -15,8 +15,6 @@ import { UserModule } from './router/v1/user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { FortuneModule } from './router/v1/fortune/fortune.module';
 import { CaslModule } from './auth/cals/casl.module';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { MulterModule } from '@nestjs/platform-express';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { GraphQLFormattedError } from 'graphql';
 
@@ -43,9 +41,7 @@ import { GraphQLFormattedError } from 'graphql';
       load: [configuration],
     }),
     //Connect DB
-    MongooseModule.forRoot(
-      'mongodb+srv://langtuvan:rhRZ5VeS4YYTyA1h@cluster0.omftx.mongodb.net/quaysomayman',
-    ),
+    MongooseModule.forRoot(process.env.DATABASE_URL),
     // Test Default Module
     PassportModule,
     CaslModule,

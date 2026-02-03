@@ -25,17 +25,16 @@ import { JwtAuthGuard } from './jwt-auth.guard';
       }),
     }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
-
   ],
   controllers: [AuthController],
   providers: [
+    ConfigService,
     AuthService,
     UserService,
-    GoogleStrategy,
-    ConfigService,
-    // FacebookStrategy,
     JwtStrategy,
     JwtAuthGuard,
+    // strategy
+    GoogleStrategy,
   ],
   exports: [AuthService],
 })
